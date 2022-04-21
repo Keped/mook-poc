@@ -10,7 +10,6 @@ import { SongsService } from './songs/songs.service';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: process.env.DATABASE_URL,
       models: [Song],
       // port: 58586,
       // password: 'password',

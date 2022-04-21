@@ -12,7 +12,7 @@ import { SongsService } from './songs/songs.service';
       dialect: 'postgres',
       host: process.env.DATABASE_URL,
       models: [Song],
-      port: 58586,
+      // port: 58586,
       password: 'password',
       username: 'postgres',
     }),

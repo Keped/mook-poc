@@ -25,7 +25,7 @@ export class SongsService {
       const newbie = await this.songModel.create();
       return newbie;
     } catch (e) {
-      console.warn(e)
+      console.warn(e);
       if (e.name === 'SequelizeDatabaseError') {
         await this.songModel.sync();
         const newbie = await this.songModel.create();

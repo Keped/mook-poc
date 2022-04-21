@@ -1,6 +1,22 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 import { AppService } from './app.service';
 
+export class RecordingDto {
+  participantId: string;
+  sessionId: string;
+  startedAt: Date;
+  endedAt: Date;
+}
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -23,8 +39,4 @@ export class AppController {
   getStartRecordingSong(@Param('songId') songId: string): Promise<string> {
     return this.appService.startRecordingSong(songId);
   }
-  // @Get('/stop_recording/:songId')
-  // getStopRecordingSong(@Param('songId') songId: string): string {
-  //   return this.appService.stopRecordingSong(songId);
-  // }
 }

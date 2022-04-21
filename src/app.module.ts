@@ -6,12 +6,12 @@ import { Song } from './songs/song.model';
 import { SongsModule } from './songs/song.module';
 import { SongsService } from './songs/songs.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import path from 'path';
+import { join } from 'node:path';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '..', 'adhoc-client'),
+      rootPath: join(__dirname, '..', 'adhoc-client'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

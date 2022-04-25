@@ -7,7 +7,7 @@ import { SongsModule } from './songs/song.module';
 import { SongsService } from './songs/songs.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'node:path';
-
+const CONNECTION_STRING = process.env['DATABASE_URL'];
 @Module({
   imports: [
     ServeStaticModule.forRoot({

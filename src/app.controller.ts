@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Body,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Express } from 'express';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 export class RecordingDto {
@@ -35,6 +25,7 @@ export class AppController {
   async getSong(@Param('songId') songId: string): Promise<string> {
     return await this.appService.getSong(songId);
   }
+
   @Get('/start_recording/:songId')
   getStartRecordingSong(@Param('songId') songId: string): Promise<string> {
     return this.appService.startRecordingSong(songId);

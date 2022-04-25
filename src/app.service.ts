@@ -15,7 +15,7 @@ export class AppService {
     return song.id;
   }
   async startRecordingSong(songId: string): Promise<string> {
-    const song = await this.songservice.update(songId, { startAt: Date.now() });
+    await this.songservice.update(songId, { startAt: Date.now() });
     return this.getSong(songId);
   }
 }

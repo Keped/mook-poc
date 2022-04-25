@@ -20,6 +20,7 @@ export class SongsService {
       },
     });
   }
+
   async create() {
     try {
       const newbie = await this.songModel.create();
@@ -33,9 +34,11 @@ export class SongsService {
       }
     }
   }
+
   update(songId: string, updateMap) {
     return this.songModel.update(updateMap, { where: { id: songId } });
   }
+
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     await user.destroy();

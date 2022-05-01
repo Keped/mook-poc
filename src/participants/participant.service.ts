@@ -20,9 +20,9 @@ export class ParticipantsService {
       },
     });
   }
-  async create(sessionId: string) {
+  async create(sessionId: string, name: string) {
     try {
-      const newbie = await this.model.create({ sessionId });
+      const newbie = await this.model.create({ sessionId, name });
       return newbie;
     } catch (e) {
       console.warn(e);

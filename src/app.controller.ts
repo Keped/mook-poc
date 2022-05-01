@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 export class RecordingDto {
@@ -15,19 +15,28 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('/create_song')
+  // todo master password
+  @Get('/create_session')
   async getCreateSong(): Promise<string> {
-    return await this.appService.createSong();
+    return await this.appService.createSession();
   }
 
-  @Get('/song/:songId')
-  async getSong(@Param('songId') songId: string): Promise<string> {
-    return await this.appService.getSong(songId);
+  @Post('/add_participant')
+  async addParticipant(
+    @Body('sessionId') sessionId: string,
+    @Body('token') token: string,
+    @Body('name') name: string,
+  ): Promise<string> {
+    return await this.appService.addParticipant(sessionId, token, name);
   }
 
-  @Get('/start_recording/:songId')
-  getStartRecordingSong(@Param('songId') songId: string): Promise<string> {
-    return this.appService.startRecordingSong(songId);
+  @Get('/start_recording/:sessId')
+  getStartRecordingSong(@Param('songId') songId: string): Promise<void> {
+    return this.appService.startRecording(songId);
+  }
+
+  @Get('/stop_recording/:sessId')
+  getStopRecordingSong(@Param('songId') songId: string): Promise<void> {
+    return this.appService.stopRecording(songId);
   }
 }

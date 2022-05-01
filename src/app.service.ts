@@ -1,21 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { SongsService } from './songs/songs.service';
+import { ParticipantsService } from './participants/participant.service';
+import { SessionsService } from './sessions/session.service';
 @Injectable()
 export class AppService {
-  constructor(private songservice: SongsService) {}
+  constructor(
+    private sessions: SessionsService,
+    private participants: ParticipantsService,
+  ) {}
   getHello(): string {
     return 'Hello World!';
   }
-  async getSong(songId: string): Promise<string> {
-    const song = await this.songservice.findOne(songId);
-    return song.toJSON();
+
+  async getSession(sessionId: string): Promise<string> {
+    const session = await this.sessions.findOne(sessionId);
+    return session.toJSON();
   }
-  async createSong(): Promise<string> {
-    const song = await this.songservice.create();
-    return song.id;
+
+  async createSession(): Promise<string> {
+    const session = await this.sessions.create();
+    return session.id;
   }
-  async startRecordingSong(songId: string): Promise<string> {
-    await this.songservice.update(songId, { startAt: Date.now() });
-    return this.getSong(songId);
+
+  async addParticipant(
+    sessionId: string,
+    token: string,
+    name: string,
+  ): Promise<string> {
+    const session = await this.sessions.findOne(sessionId);
+    if (!session || session.sessionToken !== token)
+      throw new Error('no token no play');
+
+    const { id } = await this.participants.create(sessionId, name);
+    return id;
+  }
+
+  async startRecording(sessionId: string): Promise<void> {
+    await this.sessions.startRecording(sessionId);
+  }
+  async stopRecording(sessionId: string): Promise<void> {
+    await this.sessions.stopRecording(sessionId);
   }
 }

@@ -6,4 +6,6 @@ export class Participant extends Model {
   sessionId: string;
   @Column
   timeJoined: Date;
+  @Column
+  name: string;
 }

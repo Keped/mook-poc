@@ -1,4 +1,4 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Default, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class Session extends Model {
@@ -6,4 +6,8 @@ export class Session extends Model {
   name: string;
   @Column
   sessionToken: string;
+  @Column
+  recordingStartTime?: Date;
+  @Column
+  isRecording: boolean;
 }

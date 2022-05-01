@@ -20,6 +20,7 @@ export class SessionsService {
       },
     });
   }
+
   async create() {
     try {
       const newbie = await this.sessionModel.create({
@@ -35,11 +36,22 @@ export class SessionsService {
       }
     }
   }
-  update(songId: string, updateMap) {
-    return this.sessionModel.update(updateMap, { where: { id: songId } });
+
+  async startRecording(sessId: string) {
+    const { isRecording } = await this.findOne(sessId);
+    if (isRecording) return new Error('Recording is in progress');
+    const recordingStartTime = Date.now() + 10_000;
+    await this.update(sessId, { isRecording: true, recordingStartTime });
   }
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
+
+  async stopRecording(sessId: string) {
+    const { isRecording } = await this.findOne(sessId);
+    if (isRecording) return new Error('Recording is in progress');
+    const recordingStopTime = Date.now() + 5_000;
+    await this.update(sessId, { isRecording: false, recordingStopTime });
+  }
+
+  update(sessId: string, updateMap) {
+    return this.sessionModel.update(updateMap, { where: { id: sessId } });
   }
 }

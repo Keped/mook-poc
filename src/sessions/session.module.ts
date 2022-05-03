@@ -8,4 +8,4 @@ import { SessionsService } from './session.service';
   exports: [SessionsService],
   providers: [SessionsService],
 })
-export class SongsModule {}
+export class SessionModule {}

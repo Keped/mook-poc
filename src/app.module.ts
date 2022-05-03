@@ -4,12 +4,13 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Song } from './songs/song.model';
 import { SongsModule } from './songs/song.module';
-import { SongsService } from './songs/songs.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'node:path';
+import { SessionModule } from './sessions/session.module';
 const CONNECTION_STRING = process.env['DATABASE_URL'];
 @Module({
   imports: [
+    SessionModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'adhoc-client'),
     }),

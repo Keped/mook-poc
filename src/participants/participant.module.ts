@@ -8,4 +8,4 @@ import { ParticipantsService } from './participant.service';
   exports: [ParticipantsService],
   providers: [ParticipantsService],
 })
-export class SongsModule {}
+export class ParticipantsModule {}

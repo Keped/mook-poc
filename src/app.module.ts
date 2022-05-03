@@ -7,9 +7,11 @@ import { SongsModule } from './songs/song.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'node:path';
 import { SessionModule } from './sessions/session.module';
+import { ParticipantsModule } from './participants/participant.module';
 const CONNECTION_STRING = process.env['DATABASE_URL'];
 @Module({
   imports: [
+    ParticipantsModule,
     SessionModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'adhoc-client'),

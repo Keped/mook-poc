@@ -9,8 +9,8 @@ export class Recording extends Model {
   participantId: string;
 
   @Column
-  startedAt: Date;
+  requestedStartTime: Date;
 
   @Column
-  endedAt: Date;
+  offset: number;
 }

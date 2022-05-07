@@ -6,40 +6,44 @@ import { Recording } from './recording.model';
 export class RecordingsService {
   constructor(
     @InjectModel(Recording)
-    private sessionModel: typeof Recording,
+    private recordingModel: typeof Recording,
   ) {}
 
   async findAll(): Promise<Recording[]> {
-    return this.sessionModel.findAll();
+    return this.recordingModel.findAll();
   }
 
   findOne(id: string): Promise<Recording> {
-    return this.sessionModel.findOne({
+    return this.recordingModel.findOne({
       where: {
         id,
       },
     });
   }
-  async create() {
+  async create(recordingDetails: {
+    sessionId: string;
+    token: string;
+    requestedStartTime: Date;
+    offsetMs;
+  }) {
     try {
-      const newbie = await this.sessionModel.create({
-        sessionToken: (Math.random() + 1).toString(36).substring(7),
-      });
+      const newbie = await this.recordingModel.create(recordingDetails);
       return newbie;
     } catch (e) {
       console.warn(e);
       if (e.name === 'SequelizeDatabaseError') {
-        await this.sessionModel.sync();
-        const newbie = await this.sessionModel.create();
+        await this.recordingModel.sync();
+        const newbie = await this.recordingModel.create();
         return newbie;
       }
     }
   }
-  update(songId: string, updateMap) {
-    return this.sessionModel.update(updateMap, { where: { id: songId } });
-  }
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
-  }
+
+  // update(songId: string, updateMap) {
+  //   return this.recordingModel.update(updateMap, { where: { id: songId } });
+  // }
+  // async remove(id: string): Promise<void> {
+  //   const user = await this.findOne(id);
+  //   await user.destroy();
+  // }
 }

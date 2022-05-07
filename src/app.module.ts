@@ -10,9 +10,12 @@ import { SessionModule } from './sessions/session.module';
 import { ParticipantsModule } from './participants/participant.module';
 import { Session } from './sessions/session.model';
 import { Participant } from './participants/participant.model';
+import { Recording } from './recordings/recording.model';
+import { RecordingsModule } from './recordings/recording.module';
 const CONNECTION_STRING = process.env['DATABASE_URL'];
 @Module({
   imports: [
+    RecordingsModule,
     ParticipantsModule,
     SessionModule,
     ServeStaticModule.forRoot({
@@ -21,7 +24,7 @@ const CONNECTION_STRING = process.env['DATABASE_URL'];
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: 'ec2-63-35-156-160.eu-west-1.compute.amazonaws.com',
-      models: [Session, Participant],
+      models: [Session, Participant, Recording],
       port: 5432,
       database: 'd2emjjpahc6fjn',
       password:

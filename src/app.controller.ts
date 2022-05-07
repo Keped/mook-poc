@@ -15,9 +15,17 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('/status/:sessId')
+  async getStatus(
+    @Param('sessId') sessId: string,
+  ): Promise<Record<string, unknown>> {
+    return await this.appService.getSession(sessId);
+  }
+
   // todo master password
   @Get('/create_session')
-  async getCreateSong(): Promise<string> {
+  async getCreateSession(): Promise<Record<string, unknown>> {
     return await this.appService.createSession();
   }
 
@@ -31,12 +39,27 @@ export class AppController {
   }
 
   @Get('/start_recording/:sessId')
-  getStartRecordingSong(@Param('songId') songId: string): Promise<void> {
-    return this.appService.startRecording(songId);
+  getStartRecordingSong(@Param('sessId') sessId: string): Promise<void> {
+    return this.appService.startRecording(sessId);
   }
 
   @Get('/stop_recording/:sessId')
-  getStopRecordingSong(@Param('songId') songId: string): Promise<void> {
-    return this.appService.stopRecording(songId);
+  getStopRecordingSong(@Param('sessId') sessId: string): Promise<void> {
+    return this.appService.stopRecording(sessId);
+  }
+
+  @Post('/recording_uploaded')
+  onRecordingUploaded(
+    @Body('sessionId') sessionId: string,
+    @Body('token') token: string,
+    @Body('requestedStartTime') requestedStartTime: Date,
+    @Body('offsetMs') offsetMs = 0,
+  ) {
+    return this.appService.recordingFinished({
+      sessionId,
+      token,
+      requestedStartTime,
+      offsetMs,
+    });
   }
 }

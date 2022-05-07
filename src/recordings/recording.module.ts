@@ -8,4 +8,4 @@ import { RecordingsService } from './recording.service';
   exports: [RecordingsService],
   providers: [RecordingsService],
 })
-export class SongsModule {}
+export class RecordingsModule {}

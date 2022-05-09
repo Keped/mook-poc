@@ -5,6 +5,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import RecordButton from '../components/RecordButton';
 import SimpleFileUpload from 'react-simple-file-upload';
 import { checkStatus, uploadRecord } from '../api/Requests';
+import uploader from '../api/Uploader';
 
 const height = window.innerHeight - 20
 
@@ -41,14 +42,6 @@ const JoinScreen: React.FC<{}> = () => {
   let updatedAt: string
   const fileName = `recording${Math.floor(Math.random() * 1000)}.wav`;
 
-  const blobToFile = (theBlob: Blob, fileName:string): File => {
-    let b: any = theBlob;
-    b.lastModifiedDate = new Date();
-    b.name = fileName;
-    return b
-
-}
-
 
   if (mediaRecorder !== undefined) {
     console.log("data listener is on")
@@ -57,13 +50,7 @@ const JoinScreen: React.FC<{}> = () => {
       let chunks = []
       chunks.push(e.data);
       const blob: any = new Blob(chunks, { 'type': 'audio/wav; codecs=opus' });
-      const myBlob: any = blobToFile(blob, fileName)
-      const audioURL = window.URL.createObjectURL(blob);
-      console.log('myBlob', myBlob, "audioURL" ,audioURL)
-      let link = document.createElement("a");
-      link.href = audioURL;
-      link.download = fileName
-      // link.click()
+      uploader.upload(blob).then(()=>{});
      }
 
     mediaRecorder.onstop = function (e: Event) {

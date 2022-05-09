@@ -1,0 +1,15 @@
+
+.RecordButton {
+height: 300px;
+width: 300px;
+border-radius: 300px; 
+border-width: 3px;
+border-color: black;
+background-color: brown;
+justify-content: center;
+align-items: center;
+display: flex;
+}
+
+
+

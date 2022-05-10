@@ -37,18 +37,28 @@ export class SessionsService {
     }
   }
 
+  isRecording(session: Session) {
+    const { recordingStartTime, recordingEndTime } = session;
+    return (
+      (recordingStartTime && !recordingEndTime) ||
+      recordingStartTime > recordingEndTime
+    );
+  }
+
   async startRecording(sessId: string) {
-    const { isRecording } = await this.findOne(sessId);
-    if (isRecording) return new Error('Recording is in progress');
-    const recordingStartTime = Date.now() + 10_000;
-    await this.update(sessId, { isRecording: true, recordingStartTime });
+    const session = await this.findOne(sessId);
+
+    if (this.isRecording(session)) {
+      return new Error('Recording is in progress');
+    }
+    await this.update(sessId, {
+      recordingStartTime: new Date(Date.now() + 6666),
+    });
   }
 
   async stopRecording(sessId: string) {
-    const { isRecording } = await this.findOne(sessId);
-    if (isRecording) return new Error('Recording is in progress');
     const recordingStopTime = Date.now() + 5_000;
-    await this.update(sessId, { isRecording: false, recordingStopTime });
+    await this.update(sessId, { recordingStopTime });
   }
 
   update(sessId: string, updateMap) {

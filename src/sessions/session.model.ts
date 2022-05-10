@@ -9,5 +9,5 @@ export class Session extends Model {
   @Column
   recordingStartTime?: Date;
   @Column
-  isRecording: boolean;
+  recordingEndTime?: Date;
 }

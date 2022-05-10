@@ -1,7 +1,6 @@
 
 import '../App.css';
 import { useState, useEffect } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
 import RecordButton from '../components/RecordButton';
 import SimpleFileUpload from 'react-simple-file-upload';
 import { checkStatus, uploadRecord } from '../api/Requests';

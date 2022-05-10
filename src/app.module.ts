@@ -35,6 +35,7 @@ const CONNECTION_STRING = process.env['DATABASE_URL'];
           rejectUnauthorized: false,
         },
       },
+      sync: { alter: true },
     }),
     SongsModule,
   ],

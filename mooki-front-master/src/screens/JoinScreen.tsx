@@ -2,9 +2,8 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
 import RecordButton from '../components/RecordButton';
-import SimpleFileUpload from 'react-simple-file-upload';
 import { checkStatus, uploadRecord } from '../api/Requests';
-import uploader from '../api/Uploader';
+import {upload} from '../api/Uploader';
 
 const height = window.innerHeight - 20
 
@@ -39,7 +38,7 @@ const JoinScreen: React.FC<{}> = () => {
   const [title, setTitle] = useState<string | number>('get ready')
   const [urlValue, setUrlValue] = useState<string | undefined>()
   let updatedAt: string
-  const fileName = `recording${Math.floor(Math.random() * 1000)}.wav`;
+  // const fileName = `recording${Math.floor(Math.random() * 1000)}.wav`;
 
 
   if (mediaRecorder !== undefined) {
@@ -49,7 +48,7 @@ const JoinScreen: React.FC<{}> = () => {
       let chunks = []
       chunks.push(e.data);
       const blob: any = new Blob(chunks, { 'type': 'audio/wav; codecs=opus' });
-      uploader.upload(blob).then(()=>{});
+      upload(blob).then(()=>{});
      }
 
     mediaRecorder.onstop = function (e: Event) {
@@ -120,14 +119,6 @@ const JoinScreen: React.FC<{}> = () => {
             <h3>{urlValue}</h3>
 
       <RecordButton title={title} handleClick={handleClick} />
-      {/* <form action="submit">
-            <input name="avatar_url" id="avatar_url" className="simple-file-upload" />
-        </form> */}
-        <SimpleFileUpload
-              apiKey="74a2801c3f59c6102373f6b55c828dad"
-              onSuccess={handleUpload}
-              preview="false"
-            />
     </div>
   );
 }

@@ -75,7 +75,7 @@ export const stopRecording = (sessId: string | number) => {
 }
 
 export const checkStatus = (sessId: string | number) => {
-    return _request(`/status/${sessId}`,'GET', null)
+    return _request(`/status/${sessId}`,'GET', null) as Promise<Record<string, string|number>>
 }
 
 

@@ -1,21 +1,30 @@
+// ES6+ example
 import * as AWS from "@aws-sdk/client-s3";
-import { PutObjectAclCommandInput } from "@aws-sdk/client-s3";
-const client = new AWS.S3({ region: "REGION" });
-const uploader = {
-  upload: async (b: Blob, startTime = new Date(), participantId = "1")=> {
-    // async/await.
-    const params = {Bucket: "mooki-poc-recordings", Key: `${startTime.getTime()}-${participantId}`, Body: b } as PutObjectAclCommandInput
-    try {
-      console.log(params)
-      const uploadResult = await client.putObject(params);
-      console.log(uploadResult)
-      return uploadResult;
-      // process data.
-    } catch (err) {
-      console.error({err})
-      // error handling.
-    }  
+import { PutObjectCommandInput, S3ClientConfig } from "@aws-sdk/client-s3";
+
+import * as ENV from "../.env" 
+//Optional Import
+ 
+const config: S3ClientConfig = {
+  credentials:{ accessKeyId: ENV.IAM_KEY,
+    secretAccessKey: ENV.IAM_SECRET,},
+    // bucketName: 'mooki-poc-recordings',
+    region: "us-east-1",
+   
+}
+export const upload = async (b: Blob, startTime = new Date(), participantId = "1") => {
+const client = new AWS.S3(config);
+
+// async/await.
+  try {
+    const response = await client.putObject({
+      Key:`${startTime.getTime()}-${participantId}`,
+      Body: b,
+      Bucket:'mooki-poc-recordings',
+      
+    } as PutObjectCommandInput);
+    return response
+  } catch (error) {
+    console.log({err:error})
   }
 }
-
-export default uploader;

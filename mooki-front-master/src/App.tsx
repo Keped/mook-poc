@@ -1,16 +1,21 @@
 
 import './App.css';
-import { Routes, Route, Link } from "react-router-dom";
-import LeaderScreen from './screens/LeaderScreen';
-import JoinScreen from './screens/JoinScreen';
-
+import { Routes, Route } from "react-router-dom";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+import Recorder from './screens/Recorder';
+const queryClient = new QueryClient()
 const App: React.FC<{}> = () => {
 
   return (
-    <Routes>
-      {/* <Route path="/" element={<LeaderScreen />} /> */}
-      <Route path="/" element={<JoinScreen />} />
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        {/* <Route path="/" element={<LeaderScreen />} /> */}
+        <Route path="/" element={<Recorder />} />
+      </Routes>
+    </QueryClientProvider>
   );
 }
 

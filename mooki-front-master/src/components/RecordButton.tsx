@@ -1,9 +1,10 @@
 import './RecordButton.css'
 
-const RecordButton: React.FC<{title: string | number, handleClick: any}> = (props) => {
+const RecordButton: React.FC<{title: string | number}> = (props) => {
 
+  
   return (
-    <button className="RecordButton" onClick={props.handleClick}>
+    <button className="RecordButton">
         <h1>{props.title}</h1>
     </button>     
   );

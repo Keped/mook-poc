@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Session } from './session.model';
 
+const WAIT_BEFORE_START = 6_666;
+const WAIT_BEFORE_END = 10_000;
+const PHASE_IDLE = 'idle';
+const PHASE_COUNTDOWN = 'count';
+const PHASE_RECORDING = 'idle';
 @Injectable()
 export class SessionsService {
   constructor(
@@ -37,27 +42,35 @@ export class SessionsService {
     }
   }
 
-  isRecording(session: Session) {
+  sessionPhase(session: Session) {
     const { recordingStartTime, recordingEndTime } = session;
-    return (
+    const now = new Date();
+    if (
       (recordingStartTime && !recordingEndTime) ||
-      recordingStartTime > recordingEndTime
-    );
+      recordingStartTime > recordingEndTime ||
+      recordingEndTime.getTime() - now.getTime() < WAIT_BEFORE_END
+    ) {
+      if (now < recordingStartTime) {
+        return PHASE_COUNTDOWN;
+      }
+      return PHASE_RECORDING;
+    }
+    return PHASE_IDLE;
   }
 
   async startRecording(sessId: string) {
     const session = await this.findOne(sessId);
-
-    if (this.isRecording(session)) {
-      return new Error('Recording is in progress');
+    const phase = this.sessionPhase(session);
+    if ([PHASE_COUNTDOWN, PHASE_RECORDING].includes(phase)) {
+      return new Error(`Recording is in progress, currently ${phase}`);
     }
     await this.update(sessId, {
-      recordingStartTime: new Date(Date.now() + 6666),
+      recordingStartTime: new Date(Date.now() + WAIT_BEFORE_START),
     });
   }
 
   async stopRecording(sessId: string) {
-    const recordingStopTime = Date.now() + 5_000;
+    const recordingStopTime = Date.now() + WAIT_BEFORE_END;
     await this.update(sessId, { recordingStopTime });
   }
 

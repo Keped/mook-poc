@@ -2,35 +2,10 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
 import RecordButton from '../components/RecordButton';
-import { checkStatus, uploadRecord } from '../api/Requests';
-import {upload} from '../api/Uploader';
+import { checkStatus, uploadRecord } from '../services/Requests';
+import {upload} from '../services/Uploader';
 
 const height = window.innerHeight - 20
-
-let  mediaRecorder: MediaRecorder | undefined = undefined
-
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  console.log('getUserMedia supported.');
-  navigator.mediaDevices.getUserMedia(
-    {
-      audio: true
-    })
-
-    // Success callback
-    .then((stream) => {
-      console.log('getUserMedia  supported on your browser!!!!!!', stream);
-      mediaRecorder = new MediaRecorder(stream);
-      // setMediaRecorder(myMediaRecorder)
-    })
-
-    // Error callback
-    .catch((err) => {
-      console.log('The following getUserMedia error occurred: ' + err);
-    }
-    );
-} else {
-  console.log('getUserMedia not supported on your browser!');
-}
 
 
 const JoinScreen: React.FC<{}> = () => {
@@ -41,22 +16,6 @@ const JoinScreen: React.FC<{}> = () => {
   // const fileName = `recording${Math.floor(Math.random() * 1000)}.wav`;
 
 
-  if (mediaRecorder !== undefined) {
-    console.log("data listener is on")
-    mediaRecorder.ondataavailable = (e: BlobEvent) => {
-      console.log('blobe event', e)
-      let chunks = []
-      chunks.push(e.data);
-      const blob: any = new Blob(chunks, { 'type': 'audio/wav; codecs=opus' });
-      upload(blob).then(()=>{});
-     }
-
-    mediaRecorder.onstop = function (e: Event) {
-      console.log("recorder stopped", e)
-
-    }
-
-  }
 
   const doCheckStatus = () => {
 

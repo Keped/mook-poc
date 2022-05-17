@@ -1,7 +1,7 @@
 
 import '../App.css';
 import { useState } from 'react';
-import { createSession } from '../api/Requests';
+import { createSession } from '../services/Requests';
 import RecordButton from '../components/RecordButton';
 import { Routes, Route, Link } from 'react-router-dom';
 

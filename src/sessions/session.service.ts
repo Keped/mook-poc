@@ -45,10 +45,14 @@ export class SessionsService {
   sessionPhase(session: Session) {
     const { recordingStartTime, recordingEndTime } = session;
     const now = new Date();
+    if (!recordingStartTime) {
+      return PHASE_IDLE;
+    }
     if (
       (recordingStartTime && !recordingEndTime) ||
-      recordingStartTime > recordingEndTime ||
-      recordingEndTime.getTime() - now.getTime() < WAIT_BEFORE_END
+      recordingStartTime > recordingEndTime //||
+      // (recordingEndTime &&
+      //   recordingEndTime.getTime() - now.getTime() < WAIT_BEFORE_END)
     ) {
       if (now < recordingStartTime) {
         return PHASE_COUNTDOWN;

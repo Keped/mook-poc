@@ -40,12 +40,12 @@ export class AppController {
 
   @Get('/start_recording/:sessId')
   async getStartRecordingSong(@Param('sessId') sessId: string): Promise<void> {
-    return await this.appService.startRecording(sessId);
+    await this.appService.startRecording(sessId);
   }
 
   @Get('/stop_recording/:sessId')
   async getStopRecordingSong(@Param('sessId') sessId: string): Promise<void> {
-    return await this.appService.stopRecording(sessId);
+    await this.appService.stopRecording(sessId);
   }
 
   @Post('/recording_uploaded')

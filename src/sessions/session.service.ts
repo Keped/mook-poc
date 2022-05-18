@@ -4,9 +4,9 @@ import { Session } from './session.model';
 
 const WAIT_BEFORE_START = 6_666;
 const WAIT_BEFORE_END = 10_000;
-const PHASE_IDLE = 'idle';
-const PHASE_COUNTDOWN = 'count';
-const PHASE_RECORDING = 'idle';
+const PHASE_IDLE = 'IDLE';
+const PHASE_COUNTDOWN = 'COUNT';
+const PHASE_RECORDING = 'REDCORDING';
 @Injectable()
 export class SessionsService {
   constructor(
@@ -45,6 +45,7 @@ export class SessionsService {
   sessionPhase(session: Session) {
     const { recordingStartTime, recordingEndTime } = session;
     const now = new Date();
+    console.log({ recordingStartTime, recordingEndTime });
     if (!recordingStartTime) {
       return PHASE_IDLE;
     }
@@ -68,9 +69,10 @@ export class SessionsService {
     if ([PHASE_COUNTDOWN, PHASE_RECORDING].includes(phase)) {
       return new Error(`Recording is in progress, currently ${phase}`);
     }
-    await this.update(sessId, {
+    const updateRes = await this.update(sessId, {
       recordingStartTime: new Date(Date.now() + WAIT_BEFORE_START),
     });
+    console.log(updateRes);
   }
 
   async stopRecording(sessId: string) {

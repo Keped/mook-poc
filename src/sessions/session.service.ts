@@ -18,6 +18,14 @@ export class SessionsService {
     return this.sessionModel.findAll();
   }
 
+  findOneByToken(token: string): Promise<Session> {
+    return this.sessionModel.findOne({
+      where: {
+        sessionToken: token,
+      },
+    });
+  }
+
   findOne(id: string): Promise<Session> {
     return this.sessionModel.findOne({
       where: {

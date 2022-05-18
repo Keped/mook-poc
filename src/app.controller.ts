@@ -30,12 +30,8 @@ export class AppController {
   }
 
   @Post('/add_participant')
-  async addParticipant(
-    @Body('sessionId') sessionId: string,
-    @Body('token') token: string,
-    @Body('name') name: string,
-  ): Promise<string> {
-    return await this.appService.addParticipant(sessionId, token, name);
+  async addParticipant(@Body('token') token: string): Promise<string> {
+    return await this.appService.addParticipant(token);
   }
 
   @Get('/start_recording/:sessId')

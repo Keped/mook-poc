@@ -23,17 +23,12 @@ export class AppService {
     return session.get();
   }
 
-  async addParticipant(
-    sessionId: string,
-    token: string,
-    name: string,
-  ): Promise<string> {
-    const session = await this.sessions.findOne(sessionId);
-    if (!session || session.sessionToken !== token)
-      throw new Error('no token no play');
+  async addParticipant(token: string): Promise<any> {
+    const session = await this.sessions.findOneByToken(token);
+    if (!session) throw new Error('session not found');
 
-    const { id } = await this.participants.create(sessionId, name);
-    return id;
+    const { id } = await this.participants.create(session.id);
+    return { id, session: session.id };
   }
 
   async startRecording(sessionId: string): Promise<void> {

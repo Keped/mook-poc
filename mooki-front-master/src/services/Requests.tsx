@@ -57,8 +57,8 @@ export const createSession = () => {
     return _request('/create_session', 'GET', null)
 }
 
-export const addParticipant = (body: object) => {
-    return _request('/add_participant','POST' ,body)
+export const addParticipant = (token: string) => {
+    return _request('/add_participant','POST' ,{token})  as Promise<{[key: string]: string}>
 }
 
 export const uploadRecord = (body: object) => {

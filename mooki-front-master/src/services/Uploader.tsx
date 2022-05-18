@@ -13,9 +13,7 @@ const config: S3ClientConfig = {
    
 }
 export const upload = async (b: Blob, startTime = new Date(), participantId = "1") => {
-const client = new AWS.S3(config);
-
-// async/await.
+  const client = new AWS.S3(config);
   try {
     const response = await client.putObject({
       Key:`${startTime.getTime()}-${participantId}`,

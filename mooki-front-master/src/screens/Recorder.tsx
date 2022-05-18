@@ -4,8 +4,11 @@ import { checkStatus } from "../services/Requests"
 import { useState } from "react"
 
 const Recorder: React.FC<{}> = () => {
-    const statusQuery = useQuery("STATUS", ()=>checkStatus(1), {refetchInterval:1_000})
-    const [clientState, setClientState] =  useState("IDLE")
+
+    const [sessionId, setSessionId] =  useState(2);
+    const [clientState, setClientState] =  useState("IDLE");
+    const statusQuery = useQuery("STATUS", ()=>checkStatus(sessionId), {refetchInterval:1_000})
+
     if (statusQuery.data){
         if(statusQuery.data.phase !== clientState){
             setClientState(statusQuery.data.phase as unknown as string);

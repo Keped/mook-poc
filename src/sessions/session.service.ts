@@ -76,8 +76,8 @@ export class SessionsService {
   }
 
   async stopRecording(sessId: string) {
-    const recordingStopTime = Date.now() + WAIT_BEFORE_END;
-    await this.update(sessId, { recordingStopTime });
+    const recordingEndTime = Date.now() + WAIT_BEFORE_END;
+    await this.update(sessId, { recordingEndTime });
   }
 
   update(sessId: string, updateMap) {

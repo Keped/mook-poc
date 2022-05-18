@@ -17,23 +17,23 @@ const JoinScreen: React.FC<{}> = () => {
 
 
 
-  const doCheckStatus = () => {
+  // const doCheckStatus = () => {
 
-    checkStatus(1).then((res: any) => {
-      console.log('status res', res)
-      if (res.isRecording && mediaRecorder?.state === 'inactive') {
-          // mediaRecorder?.start();
-          // setTitle('recording')
-          console.log('recorder state: ', mediaRecorder?.state);
-        } 
-      else if (!res.isRecording && mediaRecorder?.state === 'recording') {
-          // mediaRecorder?.start();
-          // setTitle('get ready')
-          console.log('recorder state: ', mediaRecorder?.state);
-        }
+  //   checkStatus(1).then((res: any) => {
+  //     console.log('status res', res)
+  //     if (res.isRecording && mediaRecorder?.state === 'inactive') {
+  //         // mediaRecorder?.start();
+  //         // setTitle('recording')
+  //         console.log('recorder state: ', mediaRecorder?.state);
+  //       } 
+  //     else if (!res.isRecording && mediaRecorder?.state === 'recording') {
+  //         // mediaRecorder?.start();
+  //         // setTitle('get ready')
+  //         console.log('recorder state: ', mediaRecorder?.state);
+  //       }
               
-    })
-  }
+  //   })
+  // }
   
   useEffect(() => {
 
@@ -50,34 +50,34 @@ const JoinScreen: React.FC<{}> = () => {
 
 
 
-  const handleClick = () => {
+  // const handleClick = () => {
 
-    if (mediaRecorder?.state === 'recording') {
-      mediaRecorder?.stop();
-      setTitle('start')
-      console.log('recorder state: ', mediaRecorder?.state);
-    } else {
-      mediaRecorder?.start();
-      setTitle('stop')
-      console.log('recorder state: ', mediaRecorder?.state);
-    }
-  }
-  const handleUpload = (url: string) => {
-    console.log('upload url', url)
-    let obj = {
-      sessionId:1,
-      token:1,
-      requestedStartTime: updatedAt
-    }
-    uploadRecord(obj)
-  }
+  //   if (mediaRecorder?.state === 'recording') {
+  //     mediaRecorder?.stop();
+  //     setTitle('start')
+  //     console.log('recorder state: ', mediaRecorder?.state);
+  //   } else {
+  //     mediaRecorder?.start();
+  //     setTitle('stop')
+  //     console.log('recorder state: ', mediaRecorder?.state);
+  //   }
+  // }
+  // const handleUpload = (url: string) => {
+  //   console.log('upload url', url)
+  //   let obj = {
+  //     sessionId:1,
+  //     token:1,
+  //     requestedStartTime: updatedAt
+  //   }
+  //   uploadRecord(obj)
+  // }
 
 
   return (
     <div className="App" style={{ height: height, flexDirection: 'column', justifyContent: 'space-around' }}>
             <h3>{urlValue}</h3>
 
-      <RecordButton title={title} handleClick={handleClick} />
+      <RecordButton title={title} handleClick={()=>{}} />
     </div>
   );
 }

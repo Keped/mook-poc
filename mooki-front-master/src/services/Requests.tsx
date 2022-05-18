@@ -70,9 +70,9 @@ export const startRecording = (sessId: string | number) => {
     return _request(`/start_recording/${sessId}`,'GET', null)
 }
 
-export const stopRecording = (sessId: string | number) => {
-    return _request(`/stop_recording/${sessId}`,'GET', null)
-}
+// export const stopRecording = (sessId: string | number) => {
+//     return _request(`/stop_recording/${sessId}`,'GET', null)
+// }
 
 export const checkStatus = (sessId: string | number) => {
     return _request(`/status/${sessId}`,'GET', null) as Promise<Record<string, string|number>>

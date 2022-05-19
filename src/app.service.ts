@@ -15,7 +15,12 @@ export class AppService {
 
   async getSession(sessionId: string): Promise<Record<string, unknown>> {
     const session = await this.sessions.findOne(sessionId);
-    return { ...session.get(), phase: this.sessions.sessionPhase(session) };
+    const participants = this.participants.findAllBySession(sessionId);
+    return {
+      ...session.get(),
+      phase: this.sessions.sessionPhase(session),
+      participants,
+    };
   }
 
   async createSession(): Promise<Record<string, unknown>> {

@@ -47,13 +47,15 @@ export class AppController {
   @Post('/recording_uploaded')
   onRecordingUploaded(
     @Body('sessionId') sessionId: string,
-    @Body('token') token: string,
+    @Body('playerId') playerId: string,
     @Body('requestedStartTime') requestedStartTime: Date,
     @Body('offsetMs') offsetMs = 0,
+    @Body('fileUrl') fileUrl: string,
   ) {
     return this.appService.recordingFinished({
       sessionId,
-      token,
+      playerId,
+      fileUrl,
       requestedStartTime,
       offsetMs,
     });

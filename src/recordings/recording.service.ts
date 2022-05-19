@@ -22,9 +22,10 @@ export class RecordingsService {
   }
   async create(recordingDetails: {
     sessionId: string;
-    token: string;
+    playerId: string;
+    fileUrl: string;
     requestedStartTime: Date;
-    offsetMs;
+    offsetMs: number;
   }) {
     try {
       const newbie = await this.recordingModel.create(recordingDetails);
@@ -33,7 +34,7 @@ export class RecordingsService {
       console.warn(e);
       if (e.name === 'SequelizeDatabaseError') {
         await this.recordingModel.sync();
-        const newbie = await this.recordingModel.create();
+        const newbie = await this.recordingModel.create(recordingDetails);
         return newbie;
       }
     }

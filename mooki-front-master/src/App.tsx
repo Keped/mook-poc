@@ -11,10 +11,7 @@ const App: React.FC<{}> = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        {/* <Route path="/" element={<LeaderScreen />} /> */}
-        <Route path="/" element={<Recorder />} />
-      </Routes>
+        <Recorder />
     </QueryClientProvider>
   );
 }

@@ -30,7 +30,7 @@ const _request = (type: string, method: string, data: object | null) => {
         if (method === 'GET') {
             axios.get(BASE_URL + type)
                 .then((response: any) => {
-                    // console.log('res', response);
+                    console.log('res', response);
                     resolve(response.data)
                 })
                 .catch((error: any) => {
@@ -42,7 +42,7 @@ const _request = (type: string, method: string, data: object | null) => {
         if (method === 'POST') {
             axios.post(BASE_URL + type, data)  
                 .then((response: any) => {
-                    // console.log('res', response);
+                    resolve(response.data)
                 })
                 .catch((error: any) => {
                     console.log('err', error);
@@ -57,7 +57,7 @@ export const createSession = () => {
     return _request('/create_session', 'GET', null)
 }
 
-export const addParticipant = (token: string) => {
+export const addParticipant = async (token: string) => {
     return _request('/add_participant','POST' ,{token})  as Promise<{[key: string]: string}>
 }
 

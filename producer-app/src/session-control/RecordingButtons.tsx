@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, TextInput } from "grommet";
+import { Button, Header, TextInput } from "grommet";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { BASE_URL } from "../consts";
@@ -12,26 +12,25 @@ const RecordingButtons: React.FC<{token?:string, sessionId?: string, phase?: str
 
     const addPlayer = useCallback( async () => {
         await axios.post(`${BASE_URL}/add_participant`,{token, name: playerName})
-    }, []);
+    }, [playerName, token]);
 
     const toggleRecording = useCallback( async () => {
         await axios.get(`${BASE_URL}/${phase === "IDLE" ? "start" : "stop"}_recording/${sessionId}`);
-    }, []);
+    }, [phase, sessionId]);
 
 
     const stopSession = ()=>axios.get(`${BASE_URL}/stop/${sessionId}`);
  return <ButtonsContainer>
             <ButtonsRow>
-                { phase && <Button size="large" primary>{phase === "IDLE" ? "REC" : "STOP"}</Button>}
+                { phase && <Header>{phase === "IDLE" ? "REC" : "STOP"}</Header>}
                 <Button size="large" primary onClick={()=>stopSession}>END SESSION</Button>
             </ButtonsRow>
             <ButtonsRow>
-                <Button disabled={playerName === ""} primary onClick={()=>addPlayer}>ADD Player</Button>
+                <Button disabled={playerName === ""} primary onClick={addPlayer}>ADD Player</Button>
                 <InputContainer>
                 <TextInput
                         style={{maxWidth:"300px"}}
                         placeholder="type here"
-                        value={playerName}
                         onChange={event => setName(event.target.value)}
                         />
                 </InputContainer>    

@@ -3,8 +3,9 @@ import { Button, TextInput } from "grommet";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { BASE_URL } from "../consts";
+import { ButtonsContainer, ButtonsRow, InputContainer } from "./ButtonStyles";
 
-const SessionButtons: React.FC<{token?:string, sessionId?: string, phase?: string}> = ({token, sessionId, phase})=>{
+const RecordingButtons: React.FC<{token?:string, sessionId?: string, phase?: string}> = ({token, sessionId, phase})=>{
         
     const [playerName, setName] = React.useState('');
     
@@ -17,13 +18,6 @@ const SessionButtons: React.FC<{token?:string, sessionId?: string, phase?: strin
         await axios.get(`${BASE_URL}/${phase === "IDLE" ? "start" : "stop"}_recording/${sessionId}`);
     }, []);
 
-    const createSession = useCallback( async () => {
-        await axios.get(`${BASE_URL}/create`);
-    }, []);
-
-    const destroySession = useCallback( async () => {
-        await axios.get(`${BASE_URL}/stop`);
-    }, []);
 
     const stopSession = ()=>axios.get(`${BASE_URL}/stop/${sessionId}`);
  return <ButtonsContainer>
@@ -45,26 +39,5 @@ const SessionButtons: React.FC<{token?:string, sessionId?: string, phase?: strin
         </ButtonsContainer>
 };
 
-export default SessionButtons;
-
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-`;
-const InputContainer = styled.div`
-`;
-const ButtonsRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    justify-content: center;
-    height: 50px;
-    align-items: center;
-    line-height: 50px;
-    && div,button {
-        width: 120px;
-        text-align :center;
-    }
-`;
+export default RecordingButtons;
 

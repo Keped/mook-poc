@@ -28,11 +28,22 @@ export class AppService {
     return session.get();
   }
 
-  async addParticipant(token: string): Promise<any> {
+  async updateSession(
+    sessId: string,
+    updateObj: Record<string, unknown>,
+  ): Promise<void> {
+    await this.sessions.update(sessId, updateObj);
+  }
+
+  async stopSession(sessId: string): Promise<void> {
+    await this.sessions.update(sessId, { isActive: false });
+  }
+
+  async addParticipant(token: string, name: string): Promise<any> {
     const session = await this.sessions.findOneByToken(token);
     if (!session) throw new Error('session not found');
 
-    const { id } = await this.participants.create(session.id);
+    const { id } = await this.participants.create(session.id, name);
     return { id, session: session.id };
   }
 

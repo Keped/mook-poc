@@ -22,16 +22,32 @@ export class AppController {
   ): Promise<Record<string, unknown>> {
     return await this.appService.getSession(sessId);
   }
-
   // todo master password
   @Get('/create_session')
   async getCreateSession(): Promise<Record<string, unknown>> {
     return await this.appService.createSession();
   }
 
+  // todo master password
+  @Post('/update_session')
+  async postRenameSession(
+    @Body('newName') newName: string,
+    @Body('sessionId') sessionId: string,
+  ): Promise<void> {
+    await this.appService.updateSession(sessionId, { name: newName });
+  }
+
+  @Get('/stop_session/:sessId')
+  async getKillSession(@Param('sessId') sessId: string): Promise<void> {
+    return await this.appService.stopSession(sessId);
+  }
+
   @Post('/add_participant')
-  async addParticipant(@Body('token') token: string): Promise<string> {
-    return await this.appService.addParticipant(token);
+  async addParticipant(
+    @Body('token') token: string,
+    @Body('name') name: string,
+  ): Promise<string> {
+    return await this.appService.addParticipant(token, name);
   }
 
   @Get('/start_recording/:sessId')

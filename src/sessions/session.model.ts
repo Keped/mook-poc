@@ -10,4 +10,6 @@ export class Session extends Model {
   recordingStartTime?: Date;
   @Column
   recordingEndTime?: Date;
+  @Column
+  isActive: boolean;
 }

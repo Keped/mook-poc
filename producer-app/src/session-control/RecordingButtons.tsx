@@ -20,22 +20,22 @@ const RecordingButtons: React.FC<{token?:string, sessionId?: string, phase?: str
 
 
     const stopSession = ()=>axios.get(`${BASE_URL}/stop/${sessionId}`);
- return <ButtonsContainer>
-            <ButtonsRow>
-                { phase && <Header>{phase === "IDLE" ? "REC" : "STOP"}</Header>}
-                <Button size="large" primary onClick={()=>stopSession}>END SESSION</Button>
-            </ButtonsRow>
-            <ButtonsRow>
-                <Button disabled={playerName === ""} primary onClick={addPlayer}>ADD Player</Button>
-                <InputContainer>
-                <TextInput
-                        style={{maxWidth:"300px"}}
-                        placeholder="type here"
-                        onChange={event => setName(event.target.value)}
-                        />
-                </InputContainer>    
-                        </ButtonsRow>
-        </ButtonsContainer>
+    return (<ButtonsContainer>
+                <ButtonsRow>
+                    { phase && <Header>{phase === "IDLE" ? "REC" : "STOP"}</Header>}
+                    <Button size="large" primary onClick={toggleRecording}>{phase === "IDLE" ? "REC" : "STOP"}</Button>
+                </ButtonsRow>
+                <ButtonsRow>
+                    <Button disabled={playerName === ""} primary onClick={addPlayer}>ADD Player</Button>
+                    <InputContainer>
+                        <TextInput
+                            style={{maxWidth:"300px"}}
+                            placeholder="type here"
+                            onChange={event => setName(event.target.value)}
+                                />
+                    </InputContainer>    
+                            </ButtonsRow>
+            </ButtonsContainer>);
 };
 
 export default RecordingButtons;

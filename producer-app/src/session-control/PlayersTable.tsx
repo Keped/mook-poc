@@ -12,7 +12,7 @@ const PlayersTable: React.FC<{participants: [{name:string, id :string}], token?:
         <TableRow key={`${p.id}__${p.name}`}>
             <TableCell><Text>{p.id}</Text></TableCell>
             <TableCell><Text>{p.name}</Text></TableCell>
-            <TableCell> <QRCode value={`https://mooki.herokuapp.com/player_app/${p.id}/${p.name}/${token}`}/></TableCell>
+            <TableCell> <QRCode value={`https://mooki.herokuapp.com/player_app/?player=${p.id}&token=${token}`}/></TableCell>
         </TableRow>);
     });
     return (

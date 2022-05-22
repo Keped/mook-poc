@@ -25,19 +25,11 @@ const Recorder: React.FC<{sessionId: string}> = ({sessionId}) => {
 }
 
 const Joiner: React.FC<{}>=()=>{
-    const [sessionId, setSessionId] =  useState("init");
     const [searchParams, setSearchParams] = useSearchParams();
-    const [playerId, setPlayerId] =  useState("0");
     const token = searchParams.get("token");
-    const fetchData = useCallback(async()=>{
-            if(sessionId === 'init' && token){
-                
-                const data = await addParticipant(token);
-                setSessionId(data.session);
-                setPlayerId(data.id);
-            }
-    },[sessionId, token]);
-    fetchData();
-    return(<><Recorder sessionId={sessionId}/></>);
+    const playerId = searchParams.get("player");
+    const session = searchParams.get("session");
+   
+    return(<>{session ? <Recorder sessionId={session}/>:<h3>OOPS</h3>}</>);
 }
 export default Joiner

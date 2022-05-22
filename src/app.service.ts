@@ -15,7 +15,12 @@ export class AppService {
 
   async getSession(sessionId: string): Promise<Record<string, unknown>> {
     const session = await this.sessions.findOne(sessionId);
-    const participants = await this.participants.findAllBySession(sessionId);
+    const participants = [];
+    try {
+      await this.participants.findAllBySession(sessionId);
+    } catch (e) {
+      console.error({ err: e });
+    }
     return {
       ...session.get(),
       phase: this.sessions.sessionPhase(session),

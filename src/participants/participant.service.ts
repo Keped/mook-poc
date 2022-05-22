@@ -12,9 +12,11 @@ export class ParticipantsService {
   async findAll(): Promise<Participant[]> {
     return this.model.findAll();
   }
+
   async findAllBySession(sessionId: string): Promise<Participant[]> {
     return this.model.findAll({ where: { sessionId } });
   }
+
   findOne(id: string): Promise<Participant> {
     return this.model.findOne({
       where: {

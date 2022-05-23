@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 import { addParticipant, checkStatus } from "../services/Requests"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
+import audioRecorder from "../services/RecordingService";
 const Recorder: React.FC<{sessionId: string}> = ({sessionId}) => {
 
     

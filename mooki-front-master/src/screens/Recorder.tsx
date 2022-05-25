@@ -3,12 +3,17 @@ import { useQuery } from "react-query"
 import { addParticipant, checkStatus } from "../services/Requests"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
+<<<<<<< HEAD
 // import  mookiton from '../services/RecordingService'
 import { useReactMediaRecorder } from "react-media-recorder";
 import { upload } from '../services/Uploader'
 // import  { mediaDeviceFactory } from '../services/RecordingService'
 const RECORDING = 'REDCORDING'
 const IDLE = 'IDLE'
+=======
+import audioRecorder from "../services/RecordingService";
+const Recorder: React.FC<{sessionId: string}> = ({sessionId}) => {
+>>>>>>> b1479357d89d4651b399c3922e8cd8525caae48b
 
 const Recorder:  React.FC<{ sessionId: string, data: object, playerId:string }> = ({ sessionId, data, playerId }) => {
     const [myBlob, setBlob] = useState(null)

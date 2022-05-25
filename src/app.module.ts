@@ -19,7 +19,7 @@ const CONNECTION_STRING = process.env['DATABASE_URL'];
     ParticipantsModule,
     SessionModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'adhoc-client'),
+      rootPath: join(__dirname, '..', '../mooki-front-master/build'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

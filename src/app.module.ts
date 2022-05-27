@@ -20,6 +20,7 @@ const CONNECTION_STRING = process.env['DATABASE_URL'];
     SessionModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'adhoc-client'),
+      exclude: ['/api*'],
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

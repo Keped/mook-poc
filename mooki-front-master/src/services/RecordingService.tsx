@@ -1,5 +1,5 @@
 
-// let mookiRec: MookyRecorder;
+import { upload } from '../services/Uploader'
 
 export class MookyRecorder {
     constructor(private mediaRecorder: MediaRecorder){
@@ -9,7 +9,7 @@ export class MookyRecorder {
           let chunks = []
           chunks.push(e.data);
           const blob: any = new Blob(chunks, { 'type': 'audio/wav; codecs=opus' });
-        //   upload(blob).then(()=>{});
+          // upload(blob).then(()=>{});
          }
     
         mediaRecorder.onstop = function (e: Event) {

@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const BASE_URL = 'https://mooki.herokuapp.com'
+const BASE_URL = 'https://mooki.herokuapp.com/api'
 
 
 
@@ -30,7 +30,7 @@ const _request = (type: string, method: string, data: object | null) => {
         if (method === 'GET') {
             axios.get(BASE_URL + type)
                 .then((response: any) => {
-                    console.log('res', response);
+                    // console.log('res', response.data);
                     resolve(response.data)
                 })
                 .catch((error: any) => {
@@ -63,7 +63,7 @@ export const addParticipant = async (token: string) => {
 
 export const uploadRecord = (body: object) => {
     console.log('upload obj', body)
-    // return _request('/recording_uploaded','POST' ,body)
+    return _request('/recording_uploaded','POST' ,body)
 }
 
 export const startRecording = (sessId: string | number) => {
@@ -80,3 +80,4 @@ export const checkStatus = (sessId: string | number) => {
 
 
 export default {}
+

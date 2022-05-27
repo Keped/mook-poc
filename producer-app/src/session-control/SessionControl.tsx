@@ -2,6 +2,8 @@ import axios from "axios";
 import { Button, Header, Page, PageContent, Paragraph } from "grommet";
 import React, { useCallback, useState } from "react";
 import { useQuery } from "react-query";
+import styled from "styled-components";
+import { VintageButton } from "../common";
 import { BASE_URL } from "../consts";
 import { ButtonsRow } from "./ButtonStyles";
 import PlayersTable from "./PlayersTable";
@@ -26,13 +28,14 @@ const ControlPanel: React.FC<{}> = ()=>{
     return (
         <Page kind="narrow">
             <PageContent>
+                <Container>
                 <Paragraph>
                 {
                     sessionId !== "init"?
                     <Header>Session {sessionId}!</Header>
                     :
                     <ButtonsRow>
-                        <Button primary onClick={createSession}>NEW SESSION</Button>
+                        <VintageButton onClick={createSession}>NEW SESSION</VintageButton>
                     </ButtonsRow>     
                 }
                 </Paragraph>
@@ -42,9 +45,20 @@ const ControlPanel: React.FC<{}> = ()=>{
                         <PlayersTable participants={participants} token={token}/>
                     </Paragraph>     
                 }
+                </Container>
+                
           
             </PageContent>
         </Page>);
 }   
 
 export default ControlPanel;
+const Container = styled.div`
+    width:100%;
+    height:336px;
+    color:#464646;
+    background-color:#EEEEEE;
+    background:linear-gradient(135deg, #EEEEEE 75%, #DDDDDD);
+    border-radius:9px;
+    cursor:default;
+`;

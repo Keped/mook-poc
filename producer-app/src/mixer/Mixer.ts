@@ -1,17 +1,17 @@
 import Channel from "./Channel";
 
-const files: string[] = [
-    'clav', 
-    'bassguitar',
-    'drums',
-    'horns'
-];
+// const files: string[] = [
+//     'clav', 
+//     'bassguitar',
+//     'drums',
+//     'horns'
+// ];
 
 class Mixer {
     public audioCtx: AudioContext;
     public channels: Map<string, Channel> = new Map();
     public concertHall: ConvolverNode;
-    constructor() {
+    constructor(files:string[]) {
         this.audioCtx = new AudioContext();
         this.concertHall = this.audioCtx.createConvolver();
         this.concertHall.connect(this.audioCtx.destination);

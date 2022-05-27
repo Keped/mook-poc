@@ -17,9 +17,12 @@ export class MookyRecorder {
     
         }
     }   
+    start(){
+      this.mediaRecorder.start();
+    }
 }
 
-const mediaDeviceFactory = async ()=> {
+export const mediaDeviceFactory = async ()=> {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('getUserMedia supported.');
         return navigator.mediaDevices.getUserMedia(

@@ -3,16 +3,19 @@ import { useQuery } from "react-query"
 import { addParticipant, checkStatus } from "../services/Requests"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import audioRecorder from "../services/RecordingService";
+import {mediaDeviceFactory} from "../services/RecordingService";
 const Recorder: React.FC<{sessionId: string}> = ({sessionId}) => {
-
-    
+    // private mediaRecorder: MediaRecorder|null;
+   
     const [clientState, setClientState] =  useState("NOT_CONNECTED_YET");
     const statusQuery = useQuery("STATUS", ()=>checkStatus(sessionId), {refetchInterval:1_000, enabled: sessionId !== 'init'})
     
     
     if (statusQuery.data){
         if(statusQuery.data.phase !== clientState){
+            if(statusQuery.data.phase === "IDLE" && mediaDevice){
+                mediaDevice!.start();
+            } 
             setClientState(statusQuery.data.phase as unknown as string);
         }
     }

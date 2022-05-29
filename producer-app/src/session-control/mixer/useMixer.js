@@ -3,18 +3,18 @@ import Mixer from './Mixer';
 import styled from 'styled-components';
 import { RangeInput } from 'grommet';
 
-export default function useMixer(fileNames) {
+export default function useMixer(files) {
     const [channels, setChannels] = useState([]);
     let channelStrips = [];
     let mixer;
 
 
     async function playAll() {
-        mixer = new Mixer(fileNames);
+        mixer = new Mixer(files);
 
         await mixer.initAllTracks()
         const currentStrips = [];
-        mixer.channels.forEach((channel, fileName) => { currentStrips.push(channel) });
+        mixer.channels.forEach(({channel}) => { currentStrips.push(channel) });
         setChannels(currentStrips)
 
     }
@@ -51,7 +51,6 @@ class Strip extends React.Component {
         const { name, onChanged, id, channel } = this.props;
         return (
             <StripContainer key={id.toString()}>
-                <img src={`assets/${name}.png`} width="60" />
                 <br />
                 <ClickablesContainer >
                     <ChannelClickable
@@ -121,7 +120,7 @@ class Strip extends React.Component {
 }
 
 const StripContainer = styled.div`
-background-color: transparent;
+    background-color: transparent;
 `;
 
 const ChannelsContainer = styled.div`
@@ -131,7 +130,7 @@ const ChannelsContainer = styled.div`
 `;
 
 const BorderSpan = styled.span`
-    border: 2px solid ${p => p.on ? 'green' : 'gray'};
+    border: 2px solid ${p => p.ion ? 'green' : 'gray'};
     font-size: 0.66em;
     color: ${p => p.on ? 'green' : 'gray'};
     box-shadow: 3px 3px  ${p => p.on ? 'green' : 'gray'};

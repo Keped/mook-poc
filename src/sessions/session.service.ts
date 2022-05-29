@@ -78,7 +78,7 @@ export class SessionsService {
       return new Error(`Recording is in progress, currently ${phase}`);
     }
     const updateRes = await this.update(sessId, {
-      recordingStartTime: new Date(Date.now() + WAIT_BEFORE_START),
+      recordingStartTime: new Date(new Date().setMilliseconds(0)),
     });
     console.log(updateRes);
   }

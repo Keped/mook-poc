@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ParticipantsService } from './participants/participant.service';
+import { Recording } from './recordings/recording.model';
 import { RecordingsService } from './recordings/recording.service';
 import { SessionsService } from './sessions/session.service';
 @Injectable()
@@ -16,8 +17,10 @@ export class AppService {
   async getSession(sessionId: string): Promise<Record<string, unknown>> {
     const session = await this.sessions.findOne(sessionId);
     let participants = [];
+    let recordings: Record<string, Recording[]> = {};
     try {
       participants = await this.participants.findAllBySession(sessionId);
+      recordings = await this.recording.findAllBySession(sessionId);
     } catch (e) {
       console.error({ err: e });
     }
@@ -25,6 +28,7 @@ export class AppService {
       ...session.get(),
       phase: this.sessions.sessionPhase(session),
       participants,
+      recordings,
     };
   }
 

@@ -6,7 +6,7 @@ export default class Channel {
     private offset: number = 0;
     public gain: number = 1;
     public id:number = Math.random();
-    public sourceName: string;
+    // public sourceName: string;
     private reverb: ConvolverNode;
     private trackSource:AudioBufferSourceNode|null = null;
     private loCut: BiquadFilterNode;
@@ -17,12 +17,12 @@ export default class Channel {
     // };
     private audioCtx: AudioContext;
 
-    constructor(audioCtx: AudioContext, fileName: string, reverb: ConvolverNode) {
+    constructor(audioCtx: AudioContext, file: Blob, reverb: ConvolverNode) {
         this.audioCtx = audioCtx;
         this.gainNode = this.audioCtx.createGain();
         this.panNode = this.audioCtx.createPanner();
         this.reverb = reverb;
-        this.sourceName = fileName;
+        // this.sourceName = fileName;
         this.loCut = this.audioCtx.createBiquadFilter();
         this.loCut.type = "highshelf";
         this.loCut.frequency.value = 40;
@@ -56,11 +56,9 @@ export default class Channel {
     onDisonnectReverb=()=>{
             this.gainNode.disconnect(this.reverb)
     }
-    getFile = async (filePath: string) => {
+    getFile = async (file: Blob) => {
         try {
-            const response = await fetch(`assets/${this.sourceName}.mp3`);
-            const arrayBuffer = await response.arrayBuffer();
-            const audioBuffer = await this.audioCtx.decodeAudioData(arrayBuffer);
+            const audioBuffer = await this.audioCtx.decodeAudioData(await file.arrayBuffer());
             return audioBuffer;
         } catch (e: any) { 
             console.error(e.message);
@@ -68,18 +66,23 @@ export default class Channel {
          }
     }
 
-    async playChannel(filePath: string) {
+    async playChannel(file: Blob, dest?: MediaStreamAudioDestinationNode) {
+        
         this.trackSource = this.audioCtx.createBufferSource();
-        this.getFile(filePath).then(audioBuffer=>{
+        this.getFile(file).then(audioBuffer=>{
             if (this.audioCtx.state === 'suspended') {
                 this.audioCtx.resume();
-              }
+            }
             this.trackSource!.buffer = audioBuffer!;
             this.trackSource!.connect(this.gainNode);
             this.gainNode.connect(this.panNode);
             this.panNode.connect(this.audioCtx.destination);
+            if(dest){
+                this.panNode.connect(dest);
+            }
+
             this.offset = this.audioCtx.currentTime;
-            console.log(`Playing '${filePath}', offset is ${this.offset}`)
+            // console.log(`Playing '${filePath}', offset is ${this.offset}`)
             if (this.offset === 0) {
                 this.trackSource!.start();
     

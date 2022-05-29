@@ -70,7 +70,7 @@ export class AppController {
   ) {
     return this.appService.recordingFinished({
       sessionId,
-      playerId,
+      participantId: playerId,
       fileUrl,
       requestedStartTime,
       offsetMs,

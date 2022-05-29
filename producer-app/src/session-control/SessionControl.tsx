@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { VintageButton } from "../common";
 import { API_URL, BASE_URL } from "../consts";
 import { ButtonsRow } from "./ButtonStyles";
+import MixControl from "./mixdown-control/MixdownControl";
 import PlayersTable from "./PlayersTable";
 import RecordingButtons from "./RecordingButtons";
 
@@ -45,6 +46,7 @@ const ControlPanel: React.FC<{}> = ()=>{
                         <PlayersTable participants={participants} token={token}/>
                     </Paragraph>     
                 }
+                <MixControl/>
                 </Container>
                 
           

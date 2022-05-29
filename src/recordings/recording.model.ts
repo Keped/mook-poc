@@ -6,9 +6,6 @@ export class Recording extends Model {
   sessionId: string;
 
   @Column
-  playerId: string;
-
-  @Column
   participantId: string;
 
   @Column
@@ -16,4 +13,7 @@ export class Recording extends Model {
 
   @Column
   offset: number;
+
+  @Column
+  fileUrl: string;
 }

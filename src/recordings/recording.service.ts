@@ -13,6 +13,20 @@ export class RecordingsService {
     return this.recordingModel.findAll();
   }
 
+  async findAllBySession(
+    sessionId: string,
+  ): Promise<Record<string, Recording[]>> {
+    const all = await this.recordingModel.findAll({
+      where: { sessionId },
+    });
+    const result: Record<string, Recording[]> = {};
+    all.forEach((rec) => {
+      const isoDate = rec.requestedStartTime.toISOString();
+      result[isoDate] = result[isoDate] ? [...result[isoDate], rec] : [rec];
+    });
+    return result;
+  }
+
   findOne(id: string): Promise<Recording> {
     return this.recordingModel.findOne({
       where: {
@@ -22,7 +36,7 @@ export class RecordingsService {
   }
   async create(recordingDetails: {
     sessionId: string;
-    playerId: string;
+    participantId: string;
     fileUrl: string;
     requestedStartTime: Date;
     offsetMs: number;

@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const BASE_URL = 'https://mooki.herokuapp.com'
+const BASE_URL = 'https://mooki.herokuapp.com/api'
 
 
 

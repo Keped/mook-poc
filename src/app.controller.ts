@@ -7,7 +7,7 @@ export class RecordingDto {
   startedAt: Date;
   endedAt: Date;
 }
-@Controller("/api")
+@Controller('/api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Range, Direction } from 'react-range';
 import Mixer from './Mixer';
 import styled from 'styled-components';
+import { RangeInput } from 'grommet';
 
-export default function useMixer() {
+export default function useMixer(fileNames) {
     const [channels, setChannels] = useState([]);
     let channelStrips = [];
     let mixer;
 
 
     async function playAll() {
-        mixer = new Mixer();
+        mixer = new Mixer(fileNames);
 
         await mixer.initAllTracks()
         const currentStrips = [];
@@ -81,11 +81,10 @@ class Strip extends React.Component {
                 </ClickablesContainer>
 
                 <br />
-                <Range
+                <RangeInput
                     step={0.05}
                     min={0}
                     max={1.7}
-                    direction={Direction.Up}
                     values={[this.state.gain]}
                     onChange={(values) => {
                         this.setState({ gain: values[0] });

@@ -7,12 +7,14 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query';
+
 const queryClient = new QueryClient()
 function App() {
   return (
     <Grommet plain>
       <QueryClientProvider client={queryClient}>
         <ControlPanel/>
+
       </QueryClientProvider>
     </Grommet>
   );

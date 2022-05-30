@@ -63,7 +63,7 @@ export const addParticipant = async (token: string) => {
 
 export const uploadRecord = (body: object) => {
     console.log('upload obj', body)
-    return _request('/recording_uploaded','POST' ,body)
+    return _request('/recording_uploaded','POST' , body)
 }
 
 export const startRecording = (sessId: string | number) => {

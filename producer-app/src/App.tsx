@@ -14,7 +14,6 @@ function App() {
     <Grommet plain>
       <QueryClientProvider client={queryClient}>
         <ControlPanel/>
-
       </QueryClientProvider>
     </Grommet>
   );

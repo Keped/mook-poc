@@ -6,15 +6,16 @@ import {
 import QRCode from "react-qr-code";
 import { BASE_URL } from '../consts';
 import styled from 'styled-components';
+import { LCDLike } from './ButtonStyles';
 
 const PlayersTable: React.FC<{participants: [{name:string, id :string}], token?: string}> = ({participants, token})=>{
     
     const cards = participants.map((p: {name:string, id :string})=>{
         return (
-        <Card width={"100px"} key={`${p.id}__${p.name}`}>
-            <CardHeader><Text>{p.name}</Text></CardHeader>
+        <MooCard width={"100px"}  key={`${p.id}__${p.name}`}>
+            <CardHeader><LCDLike>{p.name}</LCDLike></CardHeader>
             <CardBody> <QRCode size={64} value={`${BASE_URL}/?player=${p.id}&token=${token}`}/></CardBody>
-        </Card>);
+        </MooCard>);
     });
     const rows = (cardsToChunk: JSX.Element[])=>{
         const result = []
@@ -40,6 +41,17 @@ const MooGrid = styled.div`
     display: flex;
     flex-direction: column;
 `;
-const MooRow = styled.div`
-flex-direction: row;
+const MooCard = styled(Card)`
+    & > header { 
+        padding: 5px 10px;
+        & > div {
+            width: 100%
+            text-align: center;
+        }   
+    }
+
+    & > div {
+        padding: 15px;
+    }
+
 `;

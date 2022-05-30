@@ -8,11 +8,10 @@ import * as ENV from "../.env"
 const config: S3ClientConfig = {
   credentials:{ accessKeyId: ENV.IAM_KEY,
     secretAccessKey: ENV.IAM_SECRET,},
-    // bucketName: 'mooki-poc-recordings',
     region: "us-east-1",
    
 }
-export const upload = async (b: Blob, startTime: Date, participantId: string, sessionId: string) => {
+export const upload = async (b: Blob, startTime: Date, participantId: string, sessionId: string, offSet:number) => {
   const client = new AWS.S3(config);
   console.log('client', client, 'blob in loader', b)
   try {
@@ -24,7 +23,7 @@ export const upload = async (b: Blob, startTime: Date, participantId: string, se
       
     } as PutObjectCommandInput);
     console.log('loader res', response)
-    uploadRecord({offsetMs:0, fileUrl, sessionId, playerId:participantId, requestedStartTime:startTime }).then( res =>{
+    uploadRecord({offsetMs:offSet, fileUrl, sessionId, playerId:participantId, requestedStartTime:startTime }).then( res =>{
       return res
     })
    return response

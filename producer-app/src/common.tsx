@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button } from "grommet";
 export const VintageButton = styled(Button)`
-    width:fit-content!important;
+    min-width:200px;
     background: linear-gradient(#EDEDED 50%, #DFDFDF);
     -moz-box-shadow:inset 0px 1px 0px 0px #FFFFFF;
     -webkit-box-shadow:inset 0px 1px 0px 0px 

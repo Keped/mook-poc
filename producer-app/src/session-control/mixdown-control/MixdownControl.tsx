@@ -4,19 +4,27 @@ import { VintageButton } from '../../common';
 import useMixer from '../mixer/useMixer';
 import { download } from './Downloader';
 
-const MixControl: React.FC<{}> = () => {
+const MixControl: React.FC<{recordingsByTime:Record<string, Array<Record<string,any>>>}> = ({recordingsByTime}) => {
     const [downloadedFiles, setDownloadedFiles] = useState<Blob[]>([]);
     const [key, setKey] = useState<string | null>("1653508878241-2.wav");
 
-    const getFileFromStorage = useCallback( async (key:string | null)=>{
+    const getFilesFromStorage = useCallback( async ()=>{
         if(key){
-            const newFile:Blob = await download(key) as Blob;
-            const update = [...downloadedFiles, newFile];
-            setDownloadedFiles(update); 
+            const fileNames = recordingsByTime[key].map((v)=>v.fileUrl);
+            setKey("");
+            for (const fileName of fileNames){
+                const newFile:Blob = await download(fileName) as Blob;
+                const update = [...downloadedFiles, newFile];
+                setDownloadedFiles(update);
+            }
         }
-    },[key, downloadedFiles])
+    },[key, downloadedFiles, recordingsByTime])
     return (<div>
-        <VintageButton onClick={()=>{getFileFromStorage(key).then();}}></VintageButton>
+        {Object.keys(recordingsByTime).map((date)=>{
+
+            return <VintageButton onClick={()=>{getFilesFromStorage().then();}}>Download ${new Date(date).toTimeString()}</VintageButton>
+        })}
+        
         {useMixer(downloadedFiles)}
     </div>)
 };

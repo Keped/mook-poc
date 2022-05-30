@@ -12,7 +12,7 @@ export default function useMixer(files) {
     async function playAll() {
         mixer = new Mixer(files);
 
-        await mixer.initAllTracks()
+        await mixer.playAllTracks()
         const currentStrips = [];
         mixer.channels.forEach(({channel}) => { currentStrips.push(channel) });
         setChannels(currentStrips)

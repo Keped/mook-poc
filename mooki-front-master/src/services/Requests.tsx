@@ -54,20 +54,20 @@ const _request = (type: string, method: string, data: object | null) => {
 
 
 export const createSession = () => {
-    return _request('/api/create_session', 'GET', null)
+    return _request('/create_session', 'GET', null)
 }
 
 export const addParticipant = async (token: string) => {
-    return _request('/api/add_participant','POST' ,{token})  as Promise<{[key: string]: string}>
+    return _request('/add_participant','POST' ,{token})  as Promise<{[key: string]: string}>
 }
 
 export const uploadRecord = (body: object) => {
     console.log('upload obj', body)
-    return _request('/api/recording_uploaded','POST' ,body)
+    return _request('/recording_uploaded','POST' , body)
 }
 
 export const startRecording = (sessId: string | number) => {
-    return _request(`/api/start_recording/${sessId}`,'GET', null)
+    return _request(`/start_recording/${sessId}`,'GET', null)
 }
 
 // export const stopRecording = (sessId: string | number) => {
@@ -75,7 +75,7 @@ export const startRecording = (sessId: string | number) => {
 // }
 
 export const checkStatus = (sessId: string | number) => {
-    return _request(`/api/status/${sessId}`,'GET', null) as Promise<Record<string, string|number>>
+    return _request(`/status/${sessId}`,'GET', null) as Promise<Record<string, string|number>>
 }
 
 

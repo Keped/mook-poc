@@ -3,7 +3,7 @@ import { TextInput } from "grommet";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 import { VintageButton } from "../common";
-import { BASE_URL } from "../consts";
+import { BASE_URL, API_URL } from "../consts";
 import { ButtonsContainer, ButtonsRow, InputContainer } from "./ButtonStyles";
 
 const RecordingButtons: React.FC<{token?:string, sessionId?: string, phase?: string}> = ({token, sessionId, phase})=>{
@@ -12,15 +12,15 @@ const RecordingButtons: React.FC<{token?:string, sessionId?: string, phase?: str
     
 
     const addPlayer = useCallback( async () => {
-        await axios.post(`${BASE_URL}/add_participant`,{token, name: playerName})
+        await axios.post(`${API_URL}/add_participant`,{token, name: playerName})
     }, [playerName, token]);
 
     const toggleRecording = useCallback( async () => {
-        await axios.get(`${BASE_URL}/${phase === "IDLE" ? "start" : "stop"}_recording/${sessionId}`);
+        await axios.get(`${API_URL}/${phase === "IDLE" ? "start" : "stop"}_recording/${sessionId}`);
     }, [phase, sessionId]);
 
 
-    const stopSession = ()=>axios.get(`${BASE_URL}/stop/${sessionId}`);
+    const stopSession = ()=>axios.get(`${API_URL}/stop/${sessionId}`);
     return (<ButtonsContainer>
                     <LCDLike>Phase: {phase}</LCDLike>
                 <ButtonsRow>

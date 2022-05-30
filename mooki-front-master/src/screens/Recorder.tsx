@@ -9,7 +9,7 @@ const RECORDING = 'REDCORDING'
 const IDLE = 'IDLE'
 
 
-const Recorder:  React.FC<{ sessionId: string, data: object, playerId:string }> = ({ sessionId, data, playerId }) => {
+const Recorder:  React.FC<{ sessionId: string, data: object, playerId:string }> = ({ sessionId, playerId }) => {
     const [myBlob, setBlob] = useState(null)
     const [startTime, setStartTime] = useState(new Date)
     const [offSet, setOffSet] = useState(Number)

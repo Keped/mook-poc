@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  Table, TableBody, TableCell, TableFooter, TableHeader, TableRow,
-  Text, Grid, Card, CardBody, CardHeader,
+  Card, CardBody, CardHeader,
 } from 'grommet';
 import QRCode from "react-qr-code";
 import { BASE_URL } from '../consts';
@@ -39,7 +38,8 @@ export default PlayersTable;
 
 const MooGrid = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 21px 7px;
 `;
 const MooCard = styled(Card)`
     & > header { 

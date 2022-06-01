@@ -78,6 +78,8 @@ const ControlPanel: React.FC<{}> = ()=>{
 
 export default ControlPanel;
 const Container = styled.div`
+    margin-top: 21px;
+    padding: 21px 7px;
     width:100%;
     color:#464646;
     background-color:#EEEEEE;

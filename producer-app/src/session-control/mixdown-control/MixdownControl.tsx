@@ -21,8 +21,8 @@ const MixControl: React.FC<{recordingsByTime:Record<string, Array<Record<string,
     },[key, downloadedFiles, recordingsByTime])
     return (<div>
         {Object.keys(recordingsByTime).map((date)=>{
-
-            return <VintageButton onClick={()=>{getFilesFromStorage().then();}}>Download ${new Date(date).toTimeString()}</VintageButton>
+            const count = recordingsByTime[date].length
+            return <VintageButton onClick={()=>{getFilesFromStorage().then();}}>{new Date(date).toTimeString().split(" ")[0]}: {count} player{count>1?"s":""}</VintageButton>
         })}
         
         {useMixer(downloadedFiles)}

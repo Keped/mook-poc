@@ -30,9 +30,9 @@ export default function useMixer(files) {
                 setChannels(channels);
             }}
             gain={channel.gain} />));
-    if (channelStrips.length === 0) {
+    if (channelStrips.length > 0) {
         return (<h3>
-            <a onClick={playAll} href="#">Click to play all</a>
+            <a onClick={playAll} href="#">Play</a>
         </h3>)
     } else {
         return (<ChannelsContainer>{channelStrips}</ChannelsContainer>)

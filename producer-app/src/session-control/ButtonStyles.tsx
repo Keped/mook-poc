@@ -30,5 +30,5 @@ padding: 10px 0;
 justify-content: space-evenly;
 align-items: center;
 line-height: 50px;
-
+margin: 0 27px;
 `;

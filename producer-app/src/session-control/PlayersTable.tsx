@@ -11,9 +11,9 @@ const PlayersTable: React.FC<{participants: [{name:string, id :string}], token?:
     
     const cards = participants.map((p: {name:string, id :string})=>{
         return (
-        <MooCard width={"100px"}  key={`${p.id}__${p.name}`}>
+        <MooCard width={"128px"}  key={`${p.id}__${p.name}`}>
             <CardHeader><LCDLike>{p.name}</LCDLike></CardHeader>
-            <CardBody> <QRCode size={64} value={`${BASE_URL}/?player=${p.id}&token=${token}`}/></CardBody>
+            <CardBody> <QRCode size={96} value={`${BASE_URL}/?player=${p.id}&token=${token}`}/></CardBody>
         </MooCard>);
     });
     const rows = (cardsToChunk: JSX.Element[])=>{

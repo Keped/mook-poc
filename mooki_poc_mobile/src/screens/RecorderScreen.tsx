@@ -21,6 +21,7 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const RecorderScreen: React.FC<{ sessionId: string, data: object, playerId:string }> = ({ sessionId, playerId }) => {
 
   const [myBlob, setBlob] = useState()
+  const [myChunksArr, setMyChunksArr] = useState()
   const [startTime, setStartTime] = useState(new Date)
   const [offSet, setOffSet] = useState(Number)
 
@@ -83,17 +84,24 @@ const RecorderScreen: React.FC<{ sessionId: string, data: object, playerId:strin
       if (clientState === RECORDING) {
           let currenTime = new Date
           setOffSet(currenTime.getTime() - startTime.getTime())
-
+          let chuksArr: any = []
           AudioRecord.start();
           AudioRecord.on('data', data => {
             const chunk: any = Buffer.from(data, 'base64');
+            chuksArr.push(chunk)
+            setMyChunksArr(chuksArr)
+            // let blob: any = new Blob(chuksArr);
+            // console.log('blob', blob)
+            // setBlob(blob)
           });
         }
 
       else if (clientState === IDLE) {
-          console.log('stop!!!')
           AudioRecord.stop().then(file => {
-          // upload(file, startTime, playerId, sessionId, offSet )
+            console.log('stop!!!', myChunksArr)
+            let blob: any = new Blob(myChunksArr, { 'type': 'audio/wav; codecs=opus' });
+            console.log('blob!!!', blob)
+            upload(blob, startTime, playerId, sessionId, offSet )
           });
         }
 
@@ -110,8 +118,8 @@ const RecorderScreen: React.FC<{ sessionId: string, data: object, playerId:strin
 
   return (
       <>
-          <View  style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-              <Text>{clientState}</Text>
+          <View  style={{ flexDirection: 'column', alignItems:'center', justifyContent: 'center', backgroundColor: 'lightblue', height: WINDOW_HEIGHT}}>
+              <Text style={{fontSize:30}}>{clientState}</Text>
           </View>
       </>)
 
@@ -122,8 +130,8 @@ const RecorderScreen: React.FC<{ sessionId: string, data: object, playerId:strin
 const Joiner: React.FC<{}> = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
   const token = "21uhh" //searchParams.get("token");
-  const playerId = "9" //searchParams.get("player");
-  const session = "5" //searchParams.get("session");
+  const playerId = "20"//searchParams.get("player");
+  const session = "10"//searchParams.get("session");
   const data = {
       playerId: playerId,
       sessionId : session

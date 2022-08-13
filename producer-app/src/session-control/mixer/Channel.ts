@@ -82,7 +82,7 @@ export default class Channel {
             }
 
             this.offset = this.audioCtx.currentTime;
-            // console.log(`Playing '${filePath}', offset is ${this.offset}`)
+            console.log(`Playing from blob, offset is ${this.offset}`)
             if (this.offset === 0) {
                 this.trackSource!.start();
     

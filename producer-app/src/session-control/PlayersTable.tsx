@@ -7,13 +7,13 @@ import { BASE_URL } from '../consts';
 import styled from 'styled-components';
 import { LCDLike } from './ButtonStyles';
 
-const PlayersTable: React.FC<{participants: [{name:string, id :string}], token?: string}> = ({participants, token})=>{
+const PlayersTable: React.FC<{participants: [{name:string, id :string}], token?: string, sessionId: string}> = ({participants, token, sessionId})=>{
     
     const cards = participants.map((p: {name:string, id :string})=>{
         return (
-        <MooCard width={"128px"}  key={`${p.id}__${p.name}`}>
+        <MooCard width={"150px"}  key={`${p.id}__${p.name}`}>
             <CardHeader><LCDLike>{p.name}</LCDLike></CardHeader>
-            <CardBody> <QRCode size={96} value={`${BASE_URL}/?player=${p.id}&token=${token}`}/></CardBody>
+            <CardBody> <QRCode size={120} value={`${BASE_URL}/?player=${p.id}&token=${token}&session=${sessionId}`}/></CardBody>
         </MooCard>);
     });
     const rows = (cardsToChunk: JSX.Element[])=>{

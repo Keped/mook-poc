@@ -64,10 +64,10 @@ const ControlPanel: React.FC<{}> = ()=>{
                 }
                 { sessionId !== "init" &&
                        <><RecordingButtons token={token} sessionId={sessionId} phase={phase}/>
-                       <PlayersTable participants={participants} token={token}/></> 
+                       <PlayersTable participants={participants} token={token} sessionId={sessionId}/></> 
                 }
                 {sessionId!== "init" && 
-                <MixControl recordingsByTime={recordings} />
+                <MixControl recordingsByTime={recordings} sessionId={sessionId} />
                 }
                 </Container>
                 
